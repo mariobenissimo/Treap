@@ -170,18 +170,6 @@ template <class T> class Treap{
        return search(root->right, key);
     return search(root->left, key);
   }
-  void merge (TreapNode<T>* & t, TreapNode<T>* l, TreapNode<T>* r) {
-    if (!l || !r) //Controlla se il riferimento al nodo destro o nostro sinistro è null
-        t = l ? l : r; // al nodo t assegno l se questo esiste altrimenti r
-    else if (l->priority > r->priority){ //se la priority di l è maggiore di quella del sottoalbero destro
-        merge (l->right, l->right, r); //effettuo la chiamata ricorsiva sul sottoalbero snistro
-        t = l; //assegno l ad t
-      }
-    else{
-      merge (r->left, l, r->left); //altrimenti effettuo la chiamata ricorsiva sul sottoalbero destro
-      t = r; //assegno r ad t
-    }
-  }
 };
 // si è preferita una implementazione utilizzando i template in modo tale memorizzare qualsiasi tipo di dato all'interno del
 //treap purchè è possibile effettuare i confronti
@@ -197,8 +185,8 @@ int main()
     for(int i=0;i<n;i++){
       treap->insertNode(root, keys[i], priority[i]);
     }
-    cout <<"ATTENZIONE: per poter apprezzare le procedure del treap e stata implementata una funzione che tenta di rappresentare graficamente il treap.\n";
-    cout <<"Chiave di lettura: la radice e il primo elemento a sinistra e successivamente si visualizza da sinistra verso destra girando la testa di novanta gradi verso sinistra\n\n";
+    cout <<"ATTENZIONE: per poter apprezzare le procedure del treap e' stata implementata una funzione che tenta di rappresentare graficamente il treap.\n";
+    cout <<"Chiave di lettura: la radice e' il primo elemento a sinistra e successivamente si visualizza da sinistra verso destra girando la testa di novanta gradi verso sinistra\n\n";
     cout << "Online building con N chiamate seriali alla operazione insert (le lettere sono le chiavi invece i numeri sono le pririorità):\n\n";
     treap->printTreap(root); //visualizzazione del treap
     cout << "cancellazione del G(92):\n\n";
