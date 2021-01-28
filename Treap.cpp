@@ -196,7 +196,7 @@ int main()
     }
     cout <<"ATTENZIONE: per poter apprezzare le procedure del treap e' stata implementata una funzione che tenta di rappresentare graficamente il treap.\n";
     cout <<"Chiave di lettura: la radice e' il primo elemento a sinistra e successivamente si visualizza da sinistra verso destra girando la testa di novanta gradi verso sinistra\n\n";
-    cout << "Online building con N chiamate seriali alla operazione insert (le lettere sono le chiavi invece i numeri sono le pririorità):\n\n";
+    cout << "Online building con N chiamate seriali alla operazione insert (le lettere sono le chiavi invece i numeri sono le priorità):\n\n";
     treap->printTreap(root); //visualizzazione del treap
     cout << "Cancellazione del G(92):\n\n";
     treap->deleteNode(root, 'G');
@@ -222,7 +222,7 @@ int main()
     }
     treapSplit->printTreap(rootSplit);
     TreapNode<int> *l = NULL; //riferimento al sottoalbero sinistro
-    TreapNode<int> *r = NULL; //riferimento al sottoalbero destro 
+    TreapNode<int> *r = NULL; //riferimento al sottoalbero destro
 
     treapSplit->split(rootSplit, 5, l, r); //invoco la procedura di split e voglio che si divida utilizzandocome chiave
                                           // di divisione il numero 5
