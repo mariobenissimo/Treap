@@ -59,7 +59,14 @@ template <class T> class Treap{
 
         node = R;
     }
+    /* Function to right-rotate a given treap
 
+        r                        L
+       / \     Right Rotate     / \
+      L   R       ———>         X   r
+     / \                          / \
+    X   Y                        Y   R
+    */
     void rotateRight(TreapNode<T>* &node)
     {
         TreapNode<T>* L = node->left;
@@ -110,7 +117,9 @@ template <class T> class Treap{
                 }
             }
             else{ // Caso 2: Il nodo del treap da cancellare ha soltanto un figlio
-                TreapNode<T>* child = (node->left)? node->left: node->right; // se il nodo ha soltanto un figlio memorizzo in child l'unico nodo che ha
+                TreapNode<T>* child;
+                if(node->left) child = node->left; // se il nodo ha soltanto un figlio memorizzo in child l'unico nodo che ha
+                else child = node->right;
                 TreapNode<T>* curr = node; // memorizzo in curr il nodo da cancellare
                 node = child; // il nodo figlio prende il posto del padre e successivamente cancello il nodo
                 delete curr;
@@ -189,7 +198,7 @@ int main()
     cout <<"Chiave di lettura: la radice e' il primo elemento a sinistra e successivamente si visualizza da sinistra verso destra girando la testa di novanta gradi verso sinistra\n\n";
     cout << "Online building con N chiamate seriali alla operazione insert (le lettere sono le chiavi invece i numeri sono le pririorità):\n\n";
     treap->printTreap(root); //visualizzazione del treap
-    cout << "cancellazione del G(92):\n\n";
+    cout << "Cancellazione del G(92):\n\n";
     treap->deleteNode(root, 'G');
     treap->printTreap(root);
 
@@ -217,7 +226,7 @@ int main()
 
     treapSplit->split(rootSplit, 5, l, r); //invoco la procedura di split e voglio che si divida utilizzandocome chiave
                                           // di divisione il numero 5
-    cout<<"Visualizzazione dopo la procedura split\nAlbero sinistro:\n";  // a questo punto visualizzo sia l'albero sinistro che albero destro
+    cout<<"Visualizzazione dopo la procedura split sul nodo 5\nAlbero sinistro:\n";  // a questo punto visualizzo sia l'albero sinistro che albero destro
     treapSplit->printTreap(l);
     cout<<"Albero destro:\n";
     treapSplit->printTreap(r);
