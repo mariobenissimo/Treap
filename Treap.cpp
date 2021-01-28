@@ -170,6 +170,18 @@ template <class T> class Treap{
        return search(root->right, key);
     return search(root->left, key);
   }
+  void merge (TreapNode<T>* & t, TreapNode<T>* l, TreapNode<T>* r) {
+    if (!l || !r) //Controlla se il riferimento al nodo destro o nostro sinistro è null
+        t = l ? l : r; // al nodo t assegno l se questo esiste altrimenti r
+    else if (l->priority > r->priority){ //se la priority di l è maggiore di quella del sottoalbero destro
+        merge (l->right, l->right, r); //effettuo la chiamata ricorsiva sul sottoalbero snistro
+        t = l; //assegno l ad t
+      }
+    else{
+      merge (r->left, l, r->left); //altrimenti effettuo la chiamata ricorsiva sul sottoalbero destro
+      t = r; //assegno r ad t
+    }
+  }
 };
 // si è preferita una implementazione utilizzando i template in modo tale memorizzare qualsiasi tipo di dato all'interno del
 //treap purchè è possibile effettuare i confronti
@@ -185,21 +197,22 @@ int main()
     for(int i=0;i<n;i++){
       treap->insertNode(root, keys[i], priority[i]);
     }
-
-    cout << "ONLINE BUILDING:\n\n";
+    cout <<"ATTENZIONE: per poter apprezzare le procedure del treap e stata implementata una funzione che tenta di rappresentare graficamente il treap.\n";
+    cout <<"Chiave di lettura: la radice e il primo elemento a sinistra e successivamente si visualizza da sinistra verso destra girando la testa di novanta gradi verso sinistra\n\n";
+    cout << "Online building con N chiamate seriali alla operazione insert (le lettere sono le chiavi invece i numeri sono le pririorità):\n\n";
     treap->printTreap(root); //visualizzazione del treap
-    cout << "CANCELAZIONE NODO G(92):\n\n";
+    cout << "cancellazione del G(92):\n\n";
     treap->deleteNode(root, 'G');
     treap->printTreap(root);
 
 
-    cout<<"OFFLINE BUILDING: \n\n"; //implementazione tramite offline BUILDING
+    cout<<"Offline building partendo dal un vettore di chiavi (la priorità è impostata casualmente): \n\n"; //implementazione tramite offline BUILDING
     int keysOffline[] = {0, 10, 20, 30, 40, 50, 60, 70, 80, 90}; //vettore dei valori la priority viene impostata casuale
     Treap<int>* treapOffline=new Treap<int>();
     TreapNode<int>* t=treapOffline->build(keysOffline,0,9);
     treapOffline->printTreap(t);
 
-    cout<<"SPLIT: \n\n"; //procedura di split
+    cout<<"Procedura di split, viene creato un nuovo albero\nVisualizzazione prima della procedura split:\n"; //procedura di split
     int keysSplit[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9};
     int prioritySplit[] = { 19, 21, 76, 21, 39, 54, 91, 88, 15};
     int num = sizeof(keysSplit)/sizeof(int);
@@ -216,8 +229,8 @@ int main()
 
     treapSplit->split(rootSplit, 5, l, r); //invoco la procedura di split e voglio che si divida utilizzandocome chiave
                                           // di divisione il numero 5
-    cout<<"LEFT: \n";                     // a questo punto visualizzo sia l'albero sinistro che albero destro
+    cout<<"Visualizzazione dopo la procedura split\nAlbero sinistro:\n";  // a questo punto visualizzo sia l'albero sinistro che albero destro
     treapSplit->printTreap(l);
-    cout<<"RIGHT: \n";
+    cout<<"Albero destro:\n";
     treapSplit->printTreap(r);
 }
