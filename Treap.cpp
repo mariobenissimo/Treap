@@ -15,14 +15,14 @@ template <class T> struct TreapNode
     {
         this->data = data;
         this->priority = priority;
-        this->left = this->right = nullptr;
+        this->left = this->right = NULL;
     }
     // costruttore che imposta la priority casualmente
     TreapNode(T data)
     {
         this->data = data;
         this->priority = rand()%100;
-        this->left = this->right = nullptr;
+        this->left = this->right = NULL;
     }
 };
 
@@ -35,7 +35,7 @@ template <class T> class Treap{
   public:
 
     Treap(){ //costruttore
-      this->root=nullptr;
+      this->root=NULL;
     }
 
     TreapNode<T>* getRoot(){
@@ -79,31 +79,31 @@ template <class T> class Treap{
     }
     void insertNode(TreapNode<T>* &node, T data,int priority)
     {
-        if (node == nullptr){ // se l'albero è vuoto viene inserito il primo nodo come radice
+        if (node == NULL){ // se l'albero è vuoto viene inserito il primo nodo come radice
             node = new TreapNode<T>(data,priority);
             return;
         }
         if (data < node->data){
             insertNode(node->left, data, priority); // ricerca la giusta collocazione nell'albero binario
-            if (node->left != nullptr && node->left->priority > node->priority) // se non vengono rispettate le proprietà relative all'heap ovvero
+            if (node->left != NULL && node->left->priority > node->priority) // se non vengono rispettate le proprietà relative all'heap ovvero
                 rotateRight(node);                                              // il suo figlio sinistro ha una priority più alta del nodo stesso viene effettuata una rotazione
         }
         else{
             insertNode(node->right, data, priority); // ricerca la giusta collocazione nell'albero binario
-            if (node->right != nullptr && node->right->priority > node->priority)   // se non vengono rispettate le proprietà relative all'heap ovvero
+            if (node->right != NULL && node->right->priority > node->priority)   // se non vengono rispettate le proprietà relative all'heap ovvero
                 rotateLeft(node);                                                  // il suo figlio destro ha una priority più alta del nodo stesso viene effettuata una rotazione
         }
     }
     void deleteNode(TreapNode<T>* &node, T key) // alla prima chiamata il node sarà la root poi cambierà da chiamata in chiamata
     {
-        if (node == nullptr) return; // nel caso in cui l'albero è vuoto
+        if (node == NULL) return; // nel caso in cui l'albero è vuoto
         if (key < node->data) deleteNode(node->left, key); // ricerca del nodo da cancellare
         else if (key > node->data) deleteNode(node->right, key);
         else
         {
-            if (node->left == nullptr && node->right == nullptr){ // Caso 1: IL nodo del treap da cancellare non ha figli e quindi lo cancello senza
+            if (node->left == NULL && node->right == NULL){ // Caso 1: IL nodo del treap da cancellare non ha figli e quindi lo cancello senza
                 delete node;                                      // provocare nessun problema
-                node = nullptr;
+                node = NULL;
             }
             else if (node->left && node->right){ // Il nodo del treap da cancellare ha entrambi i figli
                 if (node->left->priority < node->right->priority){ // in base ai valori della priority dei rispettivi figli decido
@@ -161,7 +161,7 @@ template <class T> class Treap{
   }
   void printTreap(TreapNode<T> *node, int space = 0, int height = 10) // funzione che permette di visualizzare un albero in maniera ordinata
   {                                                                   // visualizzare da sinistra verso destra, il primo nodo a sinistra corrisponde alla radice
-      if (node == nullptr) return;                                    // andando da sinistra verso destra scendiamo nel nostro treap da livello a livello fino all'ultima colonna
+      if (node == NULL) return;                                    // andando da sinistra verso destra scendiamo nel nostro treap da livello a livello fino all'ultima colonna
       space += height;                                                // dove ci saranno le foglie
       printTreap(node->right, space);
       cout << endl;
@@ -189,7 +189,7 @@ int main()
     int n = 10; // dimensione
     Treap<char>* treap=new Treap<char>(); //inizializzo un treap di tipo char
     TreapNode<char>* root = treap->getRoot();
-    srand(time(nullptr));
+    srand(time(NULL));
     //ONLINE BUILDING n chiamate serial per inserire n nodi con pririorità impostata
     for(int i=0;i<n;i++){
       treap->insertNode(root, keys[i], priority[i]);
