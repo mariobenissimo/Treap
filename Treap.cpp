@@ -184,10 +184,10 @@ template <class T> class Treap{
 //treap purchè è possibile effettuare i confronti
 int main()
 {
-    int keys[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L' };
-    int priority[] = { 30, 33, 2, 21, 8, 60, 92, 46, 25, 10 };
-    int n = sizeof(keys)/sizeof(int);
-    Treap<char>* treap=new Treap<char>();
+    int keys[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'L' }; //vettore delle chiavi
+    int priority[] = { 30, 33, 2, 21, 8, 60, 92, 46, 25, 10 }; // vettore delle priorità
+    int n = 10; // dimensione
+    Treap<char>* treap=new Treap<char>(); //inizializzo un treap di tipo char
     TreapNode<char>* root = treap->getRoot();
     srand(time(nullptr));
     //ONLINE BUILDING n chiamate serial per inserire n nodi con pririorità impostata
@@ -205,24 +205,24 @@ int main()
 
     cout<<"Offline building partendo dal un vettore di chiavi (la priorità è impostata casualmente): \n\n"; //implementazione tramite offline BUILDING
     int keysOffline[] = {0, 10, 20, 30, 40, 50, 60, 70, 80, 90}; //vettore dei valori la priority viene impostata casuale
-    Treap<int>* treapOffline=new Treap<int>();
-    TreapNode<int>* t=treapOffline->build(keysOffline,0,9);
+    Treap<int>* treapOffline=new Treap<int>(); //inizializzo un nuovo treap di tipo int
+    TreapNode<int>* t=treapOffline->build(keysOffline,0,9); //inserisco le chiavi con un offline building
     treapOffline->printTreap(t);
 
     cout<<"Procedura di split, viene creato un nuovo albero\nVisualizzazione prima della procedura split:\n"; //procedura di split
     int keysSplit[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9};
     int prioritySplit[] = { 19, 21, 76, 21, 39, 54, 91, 88, 15};
-    int num = sizeof(keysSplit)/sizeof(int);
+    int num = 9;
 
     // Costruisco un albero su dove invocare la procedura di split
-    Treap<int>* treapSplit=new Treap<int>();
+    Treap<int>* treapSplit=new Treap<int>(); //creo un nuovo treap ( UGUALE A QUELLO DEL REPORT PER PORTERLO CONFRONTARE)
     TreapNode<int>* rootSplit = treapSplit->getRoot();
     for(int i=0;i<num;i++){
-      treapSplit->insertNode(rootSplit, keysSplit[i], prioritySplit[i]);
+      treapSplit->insertNode(rootSplit, keysSplit[i], prioritySplit[i]); //inserimento seriale di num valori
     }
     treapSplit->printTreap(rootSplit);
-    TreapNode<int> *l = NULL;
-    TreapNode<int> *r = NULL;
+    TreapNode<int> *l = NULL; //riferimento al sottoalbero sinistro
+    TreapNode<int> *r = NULL; //riferimento al sottoalbero destro 
 
     treapSplit->split(rootSplit, 5, l, r); //invoco la procedura di split e voglio che si divida utilizzandocome chiave
                                           // di divisione il numero 5
